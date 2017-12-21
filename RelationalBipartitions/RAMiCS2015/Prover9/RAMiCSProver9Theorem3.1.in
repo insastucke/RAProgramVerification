@@ -1,0 +1,108 @@
+% Saved by Prover9-Mace4 Version 0.5B, March 2008 (Dec 2007 LADR).
+
+set(ignore_option_dependencies). % GUI handles dependencies
+
+% Language Options
+
+op(500, infix,   "\/").
+op(500, infix,   "/\").
+op(450, infix,   "*" ).
+op(300, postfix, "^" ).
+op(250, infix,   "/" ).
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 1800).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 900).
+end_if.
+
+formulas(assumptions).
+
+% axioms of complete distributive lattice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %commutativity
+   x \/ y = y \/ x.
+   x /\ y = y /\ x.
+ %associativity
+   x \/ (y \/ z) = (x \/ y) \/ z.
+   x /\ (y /\ z) = (x /\ y) /\ z.
+ %absorpotion
+   x \/ (y /\ x) = x.
+   x /\ (y \/ x) = x.
+ % ordering
+   x <= y <-> x \/ y = y.
+   x <= y <-> x /\ y = x.
+ %distributivity
+   x /\ (y \/ z) = (x /\ y) \/ (x /\ z).
+   x \/ (y /\ z) = (x \/ y) /\ (x \/ z).
+ %constants
+   x \/ L = L.
+   x /\ O = O.
+
+% composition %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  x*(y*z) = (x*y)*z.
+  x*I = x.
+  I*x = x.
+
+% monotonicity of transposition and laws of transposition %%%%%%%%%%%%%%%%
+  x <= y -> x^ <= y^.
+  (x * y)^ = y^ * x^.
+  x^^ = x.
+
+% modular law %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  x*y /\ z <= x*(y /\ x^*z).
+
+% left residuals
+  x*y <= z <-> x <= z/y.
+
+% definition of vectors and points %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  vector(x) <-> x*L = x.
+
+% extra axiom 
+  x*O = O.
+
+% predicates for some properties
+  transitive(x) <-> x*x <= x.
+
+% auxiliary facts
+  x <= y -> x*z <= y*z.
+  x <= y -> z*x <= z*y.
+  x <= y -> x \/ z <= y \/ z.
+  x <= y -> x /\ z <= y /\ z.
+  (x \/ y)*z = x*z \/ y*z.
+  z*(x \/ y) = z*x \/ z*y.
+  L = O/O.
+  x = O <-> x <= O.
+end_of_list.
+
+formulas(goals).
+
+% Theorem 3.1 (->) -- time -
+% vector(x) & vector(y) & x /\ y = O ->
+% (z <= x*y^ \/ y*x^ ->
+
+% time 0m25.026s 
+% z*x <= y). 
+
+% & 
+
+% time 0m21.729s 
+% z*y <= x). 
+
+% & 
+
+% time 2m11.617s 
+% z <= (x \/ y)*(x \/ y)^).
+
+
+% Theorem 3.1 (<-) -- SEARCH FAILED
+vector(x) & vector(y) & x /\ y = O ->
+(z*x <= y & 
+z*y <= x &
+z <= (x \/ y)*(x \/ y)^ 
+->
+x*x^ /\ z <= O).
+%  z <= x*y^ \/ y*x^).
+end_of_list.
+

@@ -1,0 +1,41 @@
+# Cardinalities of Relations in Coq
+
+## DESCRIPTION
+
+This Coq development builds on the RelationAlgebra library to define
+an algebraic notion of cardinal, and uses it to cover several
+applications.
+
+## REQUIREMENTS
+
+RelationAlgebra v1.5, and thus Coq 8.5
+. opam install coq-relation-algebra
+. or, download and install from http://perso.ens-lyon.fr/damien.pous/ra/
+. or, download and compile from above, then edit _CoqProject
+
+## FILES
+
+natmax.v           : maximum on nat as a bigop
+misc.v     	   : common bits that could belong to Coq's standard library
+
+tarski.v   	   : what can be deduced in Dedekind categories + Tarski's rule
+points.v   	   : point axiom and corresponding lemmas
+unit.v    	   : unit axioms and corresponding lemmas
+cardinal.v 	   : cardinal axioms and corresponding lemmas
+
+linear_order.v     : cardinal of a linear_order
+trees.v            : cardinal of a tree
+independent_sets.v : results about independent sets, independent number
+decomposition.v    : decomposition into univalent relations
+
+## LICENSE
+
+This library is distributed under the terms of the GNU Lesser General
+Public License version 3. See files LICENSE, COPYING, and COPYING.LESSER.
+Copyright 2015-2016 Insa Stucke, Paul Brunet, Damien Pous.
+
+## AUTHORS
+
+. Insa Stucke, Institut für Informatik, Christian-Albrechts-Universität zu Kiel, Germany
+. Paul Brunet, Université de Lyon - LIP, ENS Lyon (UMR 5668), France
+. Damien Pous, CNRS - LIP, ENS Lyon (UMR 5668), France

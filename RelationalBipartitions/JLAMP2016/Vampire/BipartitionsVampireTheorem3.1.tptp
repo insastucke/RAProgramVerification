@@ -1,0 +1,98 @@
+
+
+% axioms of complete distributive lattice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %commutativity
+fof(uni_commutativity,axiom,(
+    ! [X,Y] : uni(X,Y) = uni(Y,X) )).
+
+fof(isc_commutativity,axiom,(
+    ! [X,Y] : isc(X,Y) = isc(Y,X) )).
+
+ %associativity
+fof(uni_associativity,axiom,(
+    ! [X,Y,Z] : uni(X,uni(Y,Z)) = uni(uni(X,Y),Z) )).
+
+fof(isc_associativity,axiom,(
+   ! [X,Y,Z] : isc(X,isc(Y,Z)) = isc(isc(X,Y),Z) )).
+
+ %absorpotion
+fof(absorbtion_isc,axiom,(
+   ! [X,Y] : X = isc(X,uni(X,Y)) )).
+
+fof(absorbtion_uni,axiom,(
+   ! [X,Y] : X = uni(X,isc(X,Y)) )).
+
+ % ordering
+fof(leq1,axiom,(
+   ! [X,Y] : (leq(X,Y) <=> uni(X,Y) = Y) )).
+
+fof(leq2,axiom,(
+   ! [X,Y] : (leq(X,Y) <=> isc(X,Y) = X) )).
+
+ %distributivity
+fof(isc_distributivity,axiom,(
+   ! [X,Y,Z] : isc(uni(X,Y),Z) = uni(isc(X,Z),isc(Y,Z)) )).
+
+fof(uni_distributivity,axiom,(
+   ! [X,Y,Z] : uni(isc(X,Y),Z) = isc(uni(X,Z),uni(Y,Z)) )).
+
+ %constants
+fof(def_top,axiom,(
+   ! [X] : top = uni(X,top) )).
+
+fof(def_zero,axiom,(
+    ! [X] : zero = isc(X,zero) )).
+
+% composition %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+fof(comp_associativity,axiom,(
+   ! [X,Y,Z] : comp(X,comp(Y,Z)) = comp(comp(X,Y),Z) )).
+
+fof(comp_identity_right,axiom,(
+   ! [X] : comp(X,one) = X )). 
+
+fof(comp_identity_left,axiom,(
+   ! [X] : comp(one,X) = X )).
+
+% monotonicity of transposition and laws of transposition %%%%%%%%%%%%%%%%
+fof(trp_monotonocity,axiom,(
+   ! [X,Y] : (leq(X,Y) => leq(trp(X),trp(Y))) )).
+
+fof(trp_multiplicativity,axiom,(
+   ! [X,Y] : trp(comp(X,Y)) = comp(trp(Y),trp(X)) )).
+
+fof(trp_idempotence,axiom,(
+   ! [X] : trp(trp(X)) = X )).
+
+% modular law %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+fof(modular_law,axiom,(
+   ! [X,Y,Z] : leq(isc(comp(X,Y),Z),comp(X,isc(Y,comp(trp(X),Z)))) )).
+
+% left residuals
+fof(left_residual,axiom,(
+   ! [X,Y,Z] : (leq(comp(X,Y),Z) <=> leq(X,res(Z,Y))) )).
+
+% extra axiom %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+fof(extra_zero,axiom,(
+   ! [X] : comp(X,zero) = zero )).
+
+% predicates for some properties %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+fof(def_vector,axiom,(
+   ! [X] : (vector(X) <=> X = comp(X,top)) )). 
+
+fof(def_transitive,axiom,(
+   ! [X] : (transitive(X) <=> leq(comp(X,X),X)) )).
+
+
+% goals %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theorem 3.1 ("=>")  not proved - memory limit reached
+%fof(theorem_3_1,conjecture,(
+%   ! [X,Y] : ((vector(X) & vector(Y) & isc(X,Y) = zero) => 
+%                (leq(Z,uni(comp(X,trp(Y)),comp(Y,trp(X)))) 
+%                 => leq(comp(Z,X),Y))) )).
+
+% Theorem 3.1 ("<=") not proved - memory limit reached
+fof(theorem_3_1,conjecture,(
+   ! [X,Y] : ((vector(X) & vector(Y) & isc(X,Y) = zero) => 
+                (leq(comp(Z,X),Y)
+                 => leq(Z,uni(comp(X,trp(Y)),comp(Y,trp(X)))))) )).
+

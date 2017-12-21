@@ -1,0 +1,43 @@
+
+	Using Relation-Algebraic Means and Tool Support 
+	 for Investigating and Computing Bipartitions
+
+  ---------------------------------------------------------------
+
+           R. Berghammer*, I. Stucke*, and M. Winter**
+
+*  Institut für Informatik, Universität Kiel, Kiel, Germany
+** Department of Computer Science, Brock University, St. Catharines, ON, Canada
+
+
+This directory contains three folders:
+
+1. Coq 
+
+In this folder one can find the proof script BipartitionsCoqProofScript.v 
+in which most of the proofs of the presented paper were verified. 
+It compiles with Coq v8.4pl1 and v8.4pl4 which can be downloadad here: 
+
+    https://coq.inria.fr/ 
+
+The used library and its documentation can be found here: 
+
+    https://perso.ens-lyon.fr/damien.pous/ra/
+
+
+2. Prover9 
+
+This folder contains the input files for Lemma 2.1 and Theorem 3.1 of the 
+presented paper. 
+Prover9 is available here: 
+
+    https://www.cs.unm.edu/~mccune/mace4/manual/Dec-2007/
+
+
+3. Vampire 
+
+This folder contains the input files for Lemma 2.1 and Theorem 3.1 of the 
+presented paper. 
+Vampire is available here: 
+
+    http://http://www.vprover.org/

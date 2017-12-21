@@ -1,0 +1,17 @@
+## fill and uncomment the following line if you want to use
+## a specific version of the RelationAlgebra library
+# -R [path to RelationAlegbra]/ RelationAlgebra
+-R . kielyon
+
+natmax.v
+misc.v
+
+tarski.v
+points.v
+unit.v
+cardinal.v
+
+linear_order.v
+trees.v
+independent_sets.v
+decomposition.v

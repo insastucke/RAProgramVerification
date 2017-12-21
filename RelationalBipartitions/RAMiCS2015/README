@@ -1,0 +1,32 @@
+
+   Investigating and Computing Bipartitions with Algebraic Means
+  ---------------------------------------------------------------
+
+           R. Berghammer*, I. Stucke*, and M. Winter**
+
+*  Institut für Informatik, Universität Kiel, Kiel, Germany
+** Department of Computer Science, Brock University, St. Catharines, ON, Canada
+
+
+This directory contains two folders:
+
+1. Coq 
+
+In this folder one can find the proof script RamicsCoqProofScript.v in which the 
+proofs of the presented paper were verified. 
+It compiles with Coq v8.4pl1 and v8.4pl4 which can be downloadad here: 
+
+    https://coq.inria.fr/ 
+
+The used library and its documentation can be found here: 
+
+    https://perso.ens-lyon.fr/damien.pous/ra/
+
+
+2. Prover9 
+
+This folder contains the input files for Lemma 2.1 and Theorem 3.1 of the 
+presented paper. 
+Prover9 is available here: 
+
+    https://www.cs.unm.edu/~mccune/mace4/manual/Dec-2007/

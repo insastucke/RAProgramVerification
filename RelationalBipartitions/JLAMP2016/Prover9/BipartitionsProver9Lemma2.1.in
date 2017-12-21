@@ -1,0 +1,92 @@
+% Saved by Prover9-Mace4 Version 0.5B, March 2008 (Dec 2007 LADR).
+
+set(ignore_option_dependencies). % GUI handles dependencies
+
+% Language Options
+
+op(500, infix,   "\/").
+op(500, infix,   "/\").
+op(450, infix,   "*" ).
+op(300, postfix, "^" ).
+op(250, infix,   "/" ).
+
+if(Prover9). % Options for Prover9
+  assign(max_seconds, 3600).
+end_if.
+
+if(Mace4).   % Options for Mace4
+  assign(max_seconds, 3600).
+end_if.
+
+formulas(assumptions).
+
+% axioms of complete distributive lattice %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %commutativity
+   x \/ y = y \/ x.
+   x /\ y = y /\ x.
+ %associativity
+   x \/ (y \/ z) = (x \/ y) \/ z.
+   x /\ (y /\ z) = (x /\ y) /\ z.
+ %absorpotion
+   x \/ (y /\ x) = x.
+   x /\ (y \/ x) = x.
+ % ordering
+   x <= y <-> x \/ y = y.
+   x <= y <-> x /\ y = x.
+ %distributivity
+   x /\ (y \/ z) = (x /\ y) \/ (x /\ z).
+   x \/ (y /\ z) = (x \/ y) /\ (x \/ z).
+ %constants
+   x \/ L = L.
+   x /\ O = O.
+
+% composition %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  x*(y*z) = (x*y)*z.
+  x*I = x.
+  I*x = x.
+
+% monotonicity of transposition and laws of transposition %%%%%%%%%%%%%%%%
+  x <= y -> x^ <= y^.
+  (x * y)^ = y^ * x^.
+  x^^ = x.
+
+% modular law %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  x*y /\ z <= x*(y /\ x^*z).
+
+% left residuals %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  x*y <= z <-> x <= z/y.
+
+% extra axiom %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  x*O = O.
+
+% predicates for some properties %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  vector(x) <-> x*L = x.
+  transitive(x) <-> x*x <= x.
+
+% auxiliary facts (proven before) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  x <= y -> x*z <= y*z.
+  x <= y -> z*x <= z*y.
+  x <= y -> x \/ z <= y \/ z.
+  x <= y -> x /\ z <= y /\ z.
+  z*x \/ z*y = z*(x \/ y).
+  x*z \/ y*z = (x \/ y)*z .
+  x = O <-> x <= O.
+  L = O/O.
+end_of_list.
+
+formulas(goals).
+
+% Lemma 2.1 (1) -- time 2m24.621s 
+vector(x) & vector(y) & x /\ y = O -> 
+x^*y = O & y^*x = O.
+ 
+% % Lemma 2.1 (2) -- time 0m5.063s 
+%vector(x) & vector(y) & x /\ y = O -> 
+%transitive(x*x^ \/ y*y^).
+ 
+% Lemma 2.1 (3) -- time 0m0.326s 
+%vector(x) & vector(y) & x /\ y = O -> 
+%(x*y^ \/ y*x^)*(x*y^ \/ y*x^) <= x*x^ \/ y*y^.
+
+end_of_list.
+
