@@ -1,0 +1,76 @@
+% Language Options
+op(500, infix,   "\/").
+op(500, infix,   "/\").
+op(300, postfix, "'").
+op(450, infix,   "*").
+op(300, postfix, "^").
+
+formulas(assumptions).
+% axioms of Boolean algebra %%%%%%%%%%%%%%%%%%%%%%
+  %commutativity
+    x \/ y = y \/ x.
+    x /\ y = y /\ x.
+  %associativity
+    x \/ (y \/ z) = (x \/ y) \/ z.
+    x /\ (y /\ z) = (x /\ y) /\ z.
+  %absorpotion
+    x \/  (y /\ x) = x.
+    x /\  (y \/ x) = x.
+  % ordering
+    x <= y  <->  x \/ y = y.
+    x <= y  <->  x /\ y = x.
+  %distributivity
+    x /\ (y \/ z) = (x /\ y) \/ (x /\ z).
+    x \/ (y /\ z) = (x \/ y) /\ (x \/ z).
+  %constants
+    L = x \/ x'.
+    O = x /\ x'.
+
+% composition %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  x * (y * z) = (x * y) * z.
+  x * I = x.
+  I * x = x.
+
+% Schroeder/Dedekind %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  x*y /\ z <= (x /\ z*y^) * (y /\ x^*z).
+  x*y <= z <-> x^ * z' <= y'.
+  x*y <= z <-> z' * y^ <= x'.
+
+%aux lemmas (proven before)
+%to get a suitable set of axioms
+  (x \/ y)*z = x*z \/ y*z.
+  z*(x \/ y) = z*x \/ z*y.
+  (x * y)^ = y^ * x^.
+  (x \/ y)^ = x^ \/ y^.
+  (x /\ y)^ = x^ /\ y^.
+  x<=y -> x*z<= y*z.
+  x<=y -> z*x<= z*y.
+  x<=y -> x\/z<= y\/z.
+  x<=y -> x/\z<= y/\z.
+  x^^=x.
+  O<=x.
+  x<=L.
+  O*x=O.
+  x*O=O.
+
+% standard axioms for finite iteration (star) %%%%%%%%%
+  %unfold laws
+    I \/ x*rtc(x) = rtc(x).
+    I \/ rtc(x)*x = rtc(x).
+  %induction
+    x*y \/ z <= y  ->  rtc(x)*z <= y.
+    y*x \/ z <= y  ->  z*rtc(x) <= y.
+
+% point/atom
+  point(x)  <->  (x*L = x  &  L*x = L  &  x*x^ <= I).
+  atom(x)   <->  point(x*L) & point(x^*L).
+
+% invariants %%%%%%
+  Inv0(y) <-> y<=R* L.
+
+end_of_list.
+
+formulas(goals).
+   -(x=L) & point(p ) & p<= x' & R*p<=x\/p  -> -(x=x \/ p).
+end_of_list.
+

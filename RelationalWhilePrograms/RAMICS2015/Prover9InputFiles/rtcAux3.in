@@ -1,0 +1,53 @@
+op(500, infix, "\/").
+op(490, infix, "*").
+
+formulas(assumptions).
+
+% standard axioms of i-semirings %%%%%%%%%%%%%%%%%%%%%%
+  %commutative additive monoid
+    x \/ y = y \/ x.
+    x \/ O = x.   %thm in RA (done from RA.in)
+    x \/ (y \/ z) = (x \/ y) \/ z.
+  %multiplicative monoid
+    x*I = x.
+    I*x = x.
+    x*(y*z) = (x*y)*z.
+  %annihiltion laws
+    O*x = O.    %thm in RA (done from RA.in)
+    x*O = O.    %thm in RA (done from RA.in)
+  %idempotency
+    x \/ x = x. %thm in RA  (done from RA.in)
+  %distributivty
+    x*(y \/ z) = x*y \/ x*z.  %thm in RA
+    (x \/ y)*z = x*z \/ y*z.  %thm in RA
+  %order
+    x <= y  <->  x \/ y = y.
+
+% standard axioms for finite iteration (star) %%%%%%%%%
+  %unfold laws
+    I \/ x*rtc(x) = rtc(x).
+    I \/ rtc(x)*x = rtc(x).
+  %induction
+    x*y \/ z <= y  ->  rtc(x)*z <= y.
+    y*x \/ z <= y  ->  z*rtc(x) <= y.
+
+  %splitting lemma/supremum
+    (x <= z & y <= z)  <->  x \/ y <= z.
+
+% constants and predicates %%%%%%%%%
+  %greatest relation
+    x <= L.  %thm
+  %rectangular
+    rect(x)  <->  x*(L*x) <= x.
+
+end_of_list.
+
+formulas(goals).
+
+% rtc(x) \/ rtc(x)*(y*rtc(x)) <= rtc(x \/ y) % 3s   %immediately 
+rect(y) -> 
+    rtc(x \/ y) <= rtc(x) \/ rtc(x)*(y*rtc(x))
+.
+
+end_of_list.
+

@@ -1,0 +1,381 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Just Wait a While</title>
+	<meta name="author" content="Peter Hoefner">
+	<link rel="stylesheet" type="text/css" href="../../hoefner.css">
+</head>
+<body>
+<h1 style="margin-top: 0px; margin-bottom: 15px;">Just Wait a While<br/>&mdash;Automated Verification of Relational While-Programs&mdash;</h1>
+Rudolf Berghammer, Peter H&ouml;fner and Insa Stucke
+<hr/>
+
+<h2>Abstract: </h2>
+Software verification is essential for safety-critical systems. 
+In this paper, we illustrate that some verification tasks can be 
+done fully automatically. 
+We show how to automatically verify imperative programs for 
+relation-based discrete structures by combining relation algebra
+and the well-known invariant-based verification method with automated
+theorem proving.
+We present two examples in detail: a relational program for determining 
+the reflexive-transitive closure and a topological sorting algorithm. 
+We also treat the automatic verification of the equivalence of the 
+common-logical and the relation-algebraic specifications.
+<hr/>
+
+
+<h2>Reflexive-transitive Closure</h2>
+<p>
+  The first algorithm we are going to verify with the help of Prover9 is an 
+  algorithm for computing the reflexive-transitive closure for a given relation.<br/><br/>
+  <img style="margin-left:25px;" src="fig/alg1.pdf" height="120pt"/>
+</p>
+
+<p>
+  To verify this algorithm we establish two invariants.
+  <table border=1 style="margin-left:25px;">
+    <tr><td><b>Invariants</b></td></tr>
+    <tr>
+      <td><img src="fig/rtcInv0.pdf"/></td>
+    </tr><tr>
+      <td><img src="fig/rtcInv1.pdf"/></td>
+    </tr>
+  </table>
+</p>
+
+<p>
+Prover9 can verify partial correctness of this algorithm, using the following input files (for more details, we refer to the paper).
+Next to the inpuit files, we also list running times.
+<table border=1 style="margin-left:25px;">
+  <tr>
+    <td colspan=3><b>Establishment</b></td>
+  </tr>
+  <tr>
+    <td><img src="fig/rtcEst.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/rtcEst.in">input</a></td>
+  </tr>
+  <tr>
+    <td colspan=3><b>Maintenance</b></td>
+  </tr>
+  <tr>
+    <td><img src="fig/rtcMain0.pdf"</td>
+    <td>1s</td>
+    <td><a href="data/rtcMaintain0.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/rtcMain1.pdf"</td>
+    <td>0s</td>
+    <td><a href="data/rtcMaintain1.in">input</a></td>
+  </tr>
+  <tr>
+    <td colspan=3><b>Post-Condition</b></td>
+  </tr>
+  <tr>
+    <td><img src="fig/rtcPost.pdf"</td>
+    <td>0s</td>
+    <td><a href="data/rtcPost.in">input</a></td>
+  </tr>
+</table>
+</p>
+<p>
+The first law of maintenance could not be proven with our standard input file.
+We had to add three auxiliarly facts about the Kleene star.
+However, all these facts could be proven fully automatically without any interaction.
+<table border=1 style="margin-left:25px;">
+  <tr>
+    <td colspan=3><b>Auxiliary Facts</b></td>
+  </tr>
+  <tr>
+    <td><img src="fig/rtcAux1.pdf"/></td>
+    <td>73s</td>
+    <td><a href="data/rtcAux1.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/rtcAux2.pdf"/></td>
+    <td>248s</td>
+    <td><a href="data/rtcAux2.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/rtcAux3.pdf"/></td>
+    <td>184s</td>
+    <td><a href="data/rtcAux3.in">input</a></td>
+  </tr>
+</table>
+</p>
+<p>Sor far we have established partial correctnes of the algorithm.
+However, for this algorithm we can even show total correctness with the help of Prover9.
+For this proof the following properties are sufficient.
+<table border=1 style="margin-left:25px;">
+  <tr>
+    <td colspan=3><b>Termination</b></td>
+  </tr>
+  <tr>
+    <td><img src="fig/rtcTerm1.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/rtcTerm1.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/rtcTerm2.pdf"/></td>
+    <td>1s</td>
+    <td><a href="data/rtcTerm2.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/rtcTerm3.pdf"/>&nbsp;<sup><sup>1</sup></sup></td>
+    <td>0s</td>
+    <td><a href="data/rtcTerm3.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/rtcTerm4.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/rtcTerm4.in">input</a></td>
+  </tr>
+</table>
+<div style="margin-left:25px;"><small><small><sup>1</sup>
+In this example Prover9 finds a proof, but outputs "SEARCH FAILED"
+followed by "Exiting with 1 proof" (or some other number).
+A close inspection of the proof logs showed that such situations occur 
+if negative clauses are included in the goals. 
+Then the output is misleading, since in such cases Prover9 <i>did</i> find a 
+proof, but thought it had to keep searching</small></small></div>
+</p>
+<br/>&nbsp;
+
+
+<h2>Topological Sorting of Noetherian Relations</h2>
+<p>
+The second algorithm we verify is an algotithm for topological sorting.<br/><br/>
+  <img style="margin-left:25px;" src="fig/alg2.pdf" height="120pt"/>
+<p>
+</p>
+  To verify this algorithm we establish two invariants.
+  <table border=1 style="margin-left:25px;">
+    <tr><td><b>Invariants</b></td></tr>
+    <tr>
+      <td><img src="fig/topSortInv0.pdf"/></td>
+    </tr>
+    <tr>
+      <td><img src="fig/topSortInv1.pdf"/></td>
+    </tr>
+    <tr>
+      <td><img src="fig/topSortInv2.pdf"/></td>
+    </tr>
+    <tr>
+      <td><img src="fig/topSortInv3.pdf"/></td>
+    </tr>
+    <tr>
+      <td><img src="fig/topSortInv4.pdf"/></td>
+    </tr>
+    <tr>
+      <td><img src="fig/topSortInv5.pdf"/></td>
+    </tr>
+    <tr>
+      <td><img src="fig/topSortInv6.pdf"/></td>
+    </tr>
+    <tr>
+      <td><img src="fig/topSortInv7.pdf"/></td>
+    </tr>
+  </table>
+  As abbrevitation we use <br/>
+  <img src="fig/topSortInv.pdf"/>
+</p>
+<p>
+Prover9 can verify partial correctness of this algorithm, using the following input files (for more details, we refer to the paper).
+<table border=1 style="margin-left:25px;">
+  <tr>
+    <td colspan=3><b>Establishment</b></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortEst0.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/TopSortEst0.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortEst1.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/TopSortEst1.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortEst2.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/TopSortEst2.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortEst3.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/TopSortEst3.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortEst4.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/TopSortEst4.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortEst5.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/TopSortEst5.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortEst6.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/TopSortEst6.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortEst7.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/TopSortEst7.in">input</a></td>
+  </tr>
+  <tr>
+    <td colspan=3><b>Maintenance</b></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortMain0.pdf"</td>
+    <td>0s</td>
+    <td><a href="data/TopSortMain0.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortMain1.pdf"</td>
+    <td>22s</td>
+    <td><a href="data/TopSortMain1.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortMain2.pdf"</td>
+    <td>3s</td>
+    <td><a href="data/TopSortMain2.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortMain3.pdf"</td>
+    <td>1s</td>
+    <td><a href="data/TopSortMain3.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortMain4.pdf"</td>
+    <td>0s</td>
+    <td><a href="data/TopSortMain4.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortMain5.pdf"</td>
+    <td>43s</td>
+    <td><a href="data/TopSortMain5.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortMain6.pdf"</td>
+    <td>24s</td>
+    <td><a href="data/TopSortMain6.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortMain7.pdf"</td>
+    <td>0s</td>
+    <td><a href="data/TopSortMain7.in">input</a></td>
+  </tr>
+  <tr>
+    <td colspan=3><b>Post-Condition</b></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortPost.pdf"</td>
+    <td>0s</td>
+    <td><a href="data/TopSortPost.in">input</a></td>
+  </tr>
+</table>
+The establishment of the invariants can be done without splitting:<br/>
+<table border=1 style="margin-left:25px;">
+  <tr>
+    <td><img src="fig/TopSortEst.pdf"/></td>
+    <td>1s</td>
+    <td><a href="data/TopSortEst.in">input</a></td>
+  </tr>
+</table>
+</p>
+<p>Sor far we have established partial correctnes of the algorithm.
+However, for this algorithm we can again total correctness; it is similar to the above.
+
+<table border=1 style="margin-left:25px;">
+  <tr>
+    <td colspan=3><b>Termination</b></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortTerm1.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/TopSortTerm1.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/TopSortTerm2.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/TopSortTerm2.in">input</a></td>
+  </tr>
+</table>
+<br/>&nbsp;
+
+<h2>Equivalence of Logical and Relation-algebraic Specifications</h2>
+<p>
+  Above we have automatically proven total correctness for two relational while programs. 
+One reason why we could use automated theorem provers is that we are able to write program specifications 
+as relational expressions. 
+However, often specifications and program properties are <i>not</i> given in a relation-algebraic manner; 
+but in predicate-logic.
+Luckily, it is easy to show equivalences between logical and relation-algebraic specifications.<br/><br/>
+<table border=1 style="margin-left:25px;">
+<!--  <tr>
+    <td colspan=3><b>Termination</b></td>
+  </tr>
+-->
+  <tr>
+    <td><img src="fig/equiv1.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/equiv1.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/equiv2.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/equiv2.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/equiv3.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/equiv3.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/equiv4a.pdf"/></td>
+    <td>1s</td>
+    <td><a href="data/equiv4a.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/equiv4b.pdf"/></td>
+    <td>0s</td>
+    <td><a href="data/equiv4b.in">input</a></td>
+  </tr>
+  <tr>
+    <td><img src="fig/equiv5.pdf"/></td>
+    <td>2.5s</td>
+    <td><a href="data/equiv5.in">input</a></td>
+  </tr>
+</table>
+</p>
+<!--
+The input files for the proof obligations can be found in the following table.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<table border=1>
+  <tr>
+    <td colspan=2, align="center"><b>Establishment</b></td>
+  </tr>
+  <tr>
+    <td>Inv0(O)</td><td>0s</td><td><a href="data/inv1_eta.in">input</a></td>
+  </tr>
+</table>
+-->
+<p>
+<br/>
+</p>
+<p>
+    <b>Note:</b> The relation-algebraic expression inside the tables follow the paper and use the same notation;
+    the input files, however, often make use of Prover9's feature of "automated quantifying". This feature only works
+    for variables named u,v,w,x,y and z. That is why the input files sometimes use different variable names.
+</p>
+<hr/>
+
+<small>&copy; 2013, peter &lt;at&gt; hoefner-online.de<small/>
+</body>
+</html>

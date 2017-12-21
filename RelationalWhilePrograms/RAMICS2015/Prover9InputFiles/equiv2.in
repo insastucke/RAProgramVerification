@@ -1,0 +1,22 @@
+% LANGUAGE SPECIFICATIONS
+ op(500, infix,   "\/").        % join
+ op(490, infix,   "/\").        % meet
+ op(300, postfix, "'").         % complementation
+ op(480, infix,   "*").         % composition
+ op(300, postfix, "^").         % transposition
+ op(520, infix,   "<=").        % subset
+ op(520, infix,   "==").        % equality
+ op(510, prefix,  "in").        % membership
+
+
+formulas(sos).  
+% in()-predicate
+  all R all S (R <= S <-> (all x all y (in(x,y,R) -> in(x,y,S)))).
+  in(x,y,I) <-> x=y.
+end_of_list.
+
+formulas(goals).
+    all S ((all x (in(x,x,S))) <-> I <= S).
+end_of_list.
+
+
