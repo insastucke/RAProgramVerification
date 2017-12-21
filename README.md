@@ -35,13 +35,13 @@ volume 10226 of LNCS, pages 290–306, 2017
  “Investigating and Computing Bipartitions with Algebraic Means.“ 
 R. Berghammer, I. Stucke, and M. Winter, 
 published in W. Kahl, M. Winter, and J. N. Oliveira,
-editors, Relational and Algebraic Methods in Computer Science, RAMiCS 2015,
-pages 257–274, 2015.
+editors, Relational and Algebraic Methods in Computer Science, RAMiCS 2015, Proceedings, 
+volume 9348 of LNCS, pages 257–274, 2015
 
 
  “Using Relation-Algebraic Means and Tool Support for Investigating and 
 Computing Bipartitions.“ 
 R. Berghammer, I. Stucke, and M. Winter, 
 published in Journal of Logical and Algebraic Methods in Programming, 
-90:102–124, 2017.
+90:102–124, 2017
 
