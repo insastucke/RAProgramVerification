@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0055)http://www.hoefner-online.de/home/conferences/ramics15/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>Tool-Based Verification of a Relational Vertex Coloring Program</title>
+	<meta name="author" content="Peter Hoefner">
+	<link rel="stylesheet" type="text/css" href="./Index_files/hoefner.css">
+</head>
+<body>
+<h1 style="margin-top: 0px; margin-bottom: 15px;">Tool-Based Verification of a Relational Vertex Coloring Program</h1>
+Rudolf Berghammer, Peter Höfner and Insa Stucke
+<hr>
+
+<h2>Abstract: </h2>
+We present different approaches of using theorem provers in the context 
+of software verification. 
+To this end, we first develop a purely algebraic while-program for
+computing a vertex coloring of an undirected (loop-free) graph. 
+For showing its correctness, we then combine the well-known assertion-based 
+verification method with relation-algebraic calculations. 
+Based on this, we also compare the usage of three different theorem provers in 
+respect thereof: the automated theorem prover Prover9 and the two proof 
+assistents Coq and Isabelle/HOL. 
+As a result, this paper illustrates that algebraic abstraction yields 
+verification tasks that can `easily' be verified with off-the-shelf 
+theorem provers, but also reveals some shortcomings and difficulties with 
+theorem provers that are nowadays available.
+<hr>
+
+This webpage contains the input files for
+<a href="http://www.cs.unm.edu/~mccune/mace4/">Prover9</a>,
+<a href="https://coq.inria.fr/">Coq</a> and
+<a href="https://isabelle.in.tum.de/">Isabelle/HOL</a>.
+
+<h2>Verification of Proof Obligations using Prover9</h2>
+<a href="http://www.cs.unm.edu/~mccune/mace4/">Prover9</a> is a resolution- and 
+paramodulation-based automated theorem prover for first-order and 
+equational logic.
+It is, however, very limited with regard to typing.
+Therefore, we decided to restrict our experiments to homogenous relation algebra.
+We use the symbols <code>^</code>, <code>'</code>, <code>\/</code>, <code>/\</code>,and <code>*</code> 
+for transposition, complement, union, intersection, and composition, 
+respectively.
+
+For each result we want to prove automatically, we create one input 
+file.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:small"><table border="1">
+  <tbody><tr><td>Input</td><td>Output</td></tr>
+  <tr>
+    <td><a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma2.1.in">Lemma2.1.in</a></td>
+    <td><a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma2.1.out">Lemma2.1.out</a></td>
+  </tr>	
+  <tr>
+    <td><a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.1.in">Lemma3.1.in</a></td>
+    <td><a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.1.out">Lemma3.1.out</a></td>
+  </tr>	
+  <tr>
+    <td><a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.2.in">Lemma3.2.in</a></td>
+    <td><a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.1.out">Lemma3.2.out</a></td>
+  </tr>	
+  <tr>
+    <td><a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.3.in">Lemma3.3.in</a></td>
+    <td>
+	<a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.3a.out">Lemma3.3a.out</a>&nbsp;<a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.3b.out">Lemma3.3b.out</a>&nbsp;<a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.3c.out">Lemma3.3c.out</a><br>
+	<a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.3d.out">Lemma3.3d.out</a>&nbsp;<a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.3e.out">Lemma3.3e.out</a>&nbsp;<a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.3f.out">Lemma3.3f.out</a><br>
+	<a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.3g.out">Lemma3.3g.out</a>&nbsp;<a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.3h.out">Lemma3.3h.out</a>&nbsp;<a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Lemma3.3i.out">Lemma3.3i.out</a><br>
+    </td>
+  </tr>	
+  <tr>
+    <td><a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Theorem3.4.in">Theorem3.4.in</a></td>
+    <td><a href="http://www.hoefner-online.de/home/conferences/ramics15/prover9/Prover9Theorem3.4.out">Theorem3.4.out</a></td>
+  </tr>		
+</tbody></table></span>
+
+<h2>Verification of Proof Obligations using Coq</h2>
+
+Since the functionality of <a href="https://coq.inria.fr/">Coq</a> is based on 
+the predicative calculus of inductive constructions (pCIC) 
+each object has a type. 
+Thus, heterogeneous relation algebra can be modeled,
+and it has already been done within a <a href="http://perso.ens-lyon.fr/damien.pous/ra/">relation-algebra library</a>,
+This library does not only include a model for heterogeneous relation algebra 
+but also for a large number of other algebraic structures.
+<br>
+The symbols <code>`</code>, <code>!</code>, <code>+</code>, <code>^</code>, and 
+<code>*</code> are used for 
+transposition, complement, union, intersection, and composition, respectively.
+<br>
+
+Our proofs can be downloaded <a href="http://www.hoefner-online.de/home/conferences/ramics15/coq/CoqProofs.v">here</a>.
+
+<h2>Verification of Proof Obligations using Isabelle/HOL</h2>
+Similar to Coq, libraries can be included in <a href="https://isabelle.in.tum.de/">Isabelle/HOL</a>. 
+As in the case of Coq, (homogeneous) relation algebra has already be 
+formalised in Isabelle/HOL and can be downloaded <a href="http://afp.sourceforge.net/entries/Relation_Algebra.shtml">here</a> (this libary builds on this one <a href="http://afp.sourceforge.net/entries/Kleene_Algebra.shtml">here</a>)	
+<br>
+
+Our proofs can be downloaded <a href="http://www.hoefner-online.de/home/conferences/ramics15/isabelle/IsaProofs.thy">here</a>.	
+<hr>
+
+<small>© 2015, peter &lt;at&gt; hoefner-online.de<small>
+
+</small></small></body></html>
